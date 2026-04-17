@@ -1,0 +1,52 @@
+---
+# Basic otel_collector Hiera example
+#
+# A minimal working configuration. The collector scrapes its own internal
+# metrics via a prometheus receiver (self-scrape on :8888) and exposes the
+# combined pipeline through the prometheus exporter on listen_port.
+#
+
+otel_collector_listen_port: 9299
+
+otel_collector::config::config_defaults:
+  exporters:
+    prometheus:
+      endpoint: "[::]:%{lookup('otel_collector_listen_port')}"
+      send_timestamps: true
+      const_labels:
+        nodename: "%{facts.networking.fqdn}"
+  receivers:
+    prometheus/self:
+      config:
+        scrape_configs:
+          - job_name: otel-collector
+            scrape_interval: 30s
+            static_configs:
+              - targets:
+                  - "localhost:8888"
+  service:
+    telemetry:
+      metrics:
+        level: normal
+      logs:
+        level: warn
+    pipelines:
+      metrics:
+        receivers: [prometheus/self]
+        exporters: [prometheus]
+
+otel_collector::quadlet::quadlet_params:
+  container_entry:
+    Image: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector:latest"
+    AutoUpdate: registry
+    HostName: "%H"
+    LogDriver: journald
+    ReadOnly: true
+    Volume: "%{lookup('otel_collector::config::config_file')}:%{lookup('otel_collector::config::config_file')}:ro,z"
+    Exec: "--config %{lookup('otel_collector::config::config_file')}"
+    PublishPort: "[::]:%{lookup('otel_collector_listen_port')}:%{lookup('otel_collector_listen_port')}"
+  service_entry:
+    Nice: 5
+    Restart: always
+  install_entry:
+    WantedBy: default.target

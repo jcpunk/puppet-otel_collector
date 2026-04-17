@@ -5,5 +5,6 @@ fixtures:
   forge_modules:
      stdlib: "puppetlabs/stdlib"
      concat: "puppetlabs/concat"
+     extlib: "puppet/extlib"
      quadlets: "puppet/quadlets"
      systemd: "puppet/systemd"

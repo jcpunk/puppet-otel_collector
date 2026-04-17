@@ -1,0 +1,2 @@
+<% | Hash $settings = {} | -%>
+<%= $settings.extlib::sort_hash_deep.stdlib::to_yaml -%>
