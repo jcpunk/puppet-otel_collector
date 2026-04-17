@@ -1,0 +1,43 @@
+{
+  "name": "jcpunk-otel_collector",
+  "version": "0.1.0",
+  "author": "jcpunk@gmail.com",
+  "summary": " Deploy the opentelemetry collector ",
+  "license": "Apache-2.0",
+  "source": "https://github.com/jcpunk/puppet-otel_collector",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 9.0.0 < 10.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 9.0.0 < 10.0.0"
+    },
+    {
+      "name": "puppet/quadlets",
+      "version_requirement": ">= 3.0.0 < 4.0.0"
+    },
+    {
+      "name": "puppet/systemd",
+      "version_requirement": ">= 8.0.0 < 9.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat"
+    },
+    {
+      "operatingsystem": "Debian"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 8.0 < 9.0.0"
+    }
+  ],
+  "pdk-version": "3.6.1 (ga18bc44)",
+  "template-url": "pdk-default#3.6.1",
+  "template-ref": "tags/3.6.1-0-gb9426e5"
+}
