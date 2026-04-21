@@ -5,6 +5,8 @@
   "summary": " Deploy the opentelemetry collector ",
   "license": "Apache-2.0",
   "source": "https://github.com/jcpunk/puppet-otel_collector",
+  "project_page": "https://github.com/jcpunk/puppet-otel_collector",
+  "issues_url": "https://github.com/jcpunk/puppet-otel_collector/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
